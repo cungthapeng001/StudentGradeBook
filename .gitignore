@@ -1,0 +1,6 @@
+main.exe
+*.exe
+activity_log.dat
+.vs/
+*.obj
+*.pdb
