@@ -6,10 +6,23 @@ A robust and efficient C-based Student Grade Management System designed to handl
 
 - **Secure Login**: Protected by administrative password authentication.
 - **Student Management**: Add, calculate, and manage student grades across multiple subjects.
+- **Student Deletion**: Securely remove student records with automatic data shifting.
 - **Dual Search Functionality**: Search student records by Name or Roll Number.
 - **Performance Analytics**: Instantly identify the class topper.
 - **Persistent Storage**: Automatic data loading and saving to ensure data integrity between sessions.
 - **Activity Logging**: Detailed tracking of system usage and administrative actions.
+
+## 🎓 Grading Strategy
+
+The system automatically calculates academic grades based on the percentage of marks achieved:
+
+| Percentage Range | Grade | Status |
+| :--- | :---: | :--- |
+| 80% and Above | **A** | PASS |
+| 65% - 79% | **B** | PASS |
+| 50% - 64% | **C** | PASS |
+| 40% - 49% | **D** | PASS |
+| Below 40% | **F** | FAIL |
 
 ## 📊 System Flowchart
 
@@ -26,13 +39,15 @@ graph TD
     Menu --> SearchR[3. Search by Roll]
     Menu --> Topper[4. View Class Topper]
     Menu --> Table[5. View Result Table]
-    Menu --> Exit[6. Save & Exit]
+    Menu --> Delete[6. Delete Student Record]
+    Menu --> Exit[7. Save & Exit]
     
     Add --> LogA[Log Action] --> Menu
     SearchN --> LogSN[Log Action] --> Menu
     SearchR --> LogSR[Log Action] --> Menu
     Topper --> LogT[Log Action] --> Menu
     Table --> Menu
+    Delete --> LogD[Log Action] --> Menu
     
     Exit --> Save[Save Data] --> End
 ```
@@ -60,6 +75,7 @@ graph TD
 
 - `main.c`: Core application logic and menu system.
 - `student.c / student.h`: Student record management and calculations.
+- `delete.c / delete.h`: Modular student record deletion logic.
 - `auth.c / auth.h`: Authentication and security layer.
 - `activity_log.dat`: Automated log of system interactions.
 
