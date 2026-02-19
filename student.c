@@ -22,7 +22,8 @@ void showMenu() {
     printf("3. Search Result by Roll Number\n");
     printf("4. Show Class Topper\n");
     printf("5. Show All Results\n");
-    printf("6. Exit\n");
+    printf("6. Delete Student Record\n");
+    printf("7. Exit\n");
     printf("Enter your choice: ");
 }
 

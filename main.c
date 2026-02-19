@@ -4,6 +4,8 @@
 #include "auth.c"
 #include "student.h"
 #include "student.c"
+#include "delete.h"
+#include "delete.c"
 
 int main() {
     // စနစ်အတွင်းသို့ ဝင်ရောက်ခြင်း
@@ -106,6 +108,12 @@ int main() {
             }
             case 6:
             {
+                // ကျောင်းသားဒေတာကို ဖျက်သိမ်းခြင်း
+                deleteStudentData(&students, subjects, roll, studentName, marks, total, percentage, grade, status);
+                break;
+            }
+            case 7:
+            {
                // စနစ်မှ မထွက်မီ ဒေတာများကို သိမ်းဆည်းခြင်း
                saveData(students, subjects, roll, studentName, subjectName, marks, total, percentage, grade, status);
                printf("Exiting system...\n");
@@ -116,7 +124,7 @@ int main() {
             default:
                 printf("Invalid choice! Try again.\n");
         }
-    } while (choice != 6);
+    } while (choice != 7);
 
     return 0;
 }
