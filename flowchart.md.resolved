@@ -1,0 +1,64 @@
+# Student Grade Book — Program Flowchart
+
+```mermaid
+flowchart TD
+    A([🚀 Start Program]) --> B[/Login Prompt\nmax 3 attempts/]
+    B --> C{Password\nCorrect?}
+    C -- No, attempts left --> B
+    C -- "No, 0 attempts left" --> Z([❌ Exit: Too many failures])
+    C -- Yes --> D[Load data from\ndatabase.dat]
+    D --> E{subjects > 0\nin saved data?}
+    E -- Yes --> F[Use loaded subjects\n& names]
+    E -- No --> G[/Enter number of\nsubjects & names/]
+    F --> H
+    G --> H[Show Main Menu]
+
+    H --> I{User Choice}
+
+    I -- 1 --> J[Add New Student\nEnter roll, name, marks]
+    J --> J1[Calculate total,\npercentage, grade, status]
+    J1 --> J2[Log: STUDENT ADDED]
+    J2 --> H
+
+    I -- 2 --> K[/Enter student name/]
+    K --> K1{Name found\nin array?}
+    K1 -- Yes --> K2[Display student result]
+    K1 -- No --> K3[Print: Not found]
+    K2 & K3 --> K4[Log: Searched by Name]
+    K4 --> H
+
+    I -- 3 --> L[/Enter roll number/]
+    L --> L1{Roll found\nin array?}
+    L1 -- Yes --> L2[Display student result]
+    L1 -- No --> L3[Print: Not found]
+    L2 & L3 --> L4[Log: Searched by Roll]
+    L4 --> H
+
+    I -- 4 --> M{students > 0?}
+    M -- No --> M1[Print: No data]
+    M -- Yes --> M2[Find highest\npercentage index]
+    M2 --> M3[Display Class Topper]
+    M1 & M3 --> M4[Log: Viewed Class Topper]
+    M4 --> H
+
+    I -- 5 --> N{students > 0?}
+    N -- No --> N1[Print: No data]
+    N -- Yes --> N2[Print full\nresult table]
+    N1 & N2 --> N3[Log: Viewed Result Table]
+    N3 --> H
+
+    I -- 6 --> O[/Enter roll to delete/]
+    O --> O1{Roll found\nin array?}
+    O1 -- No --> O2[Print: Not found]
+    O1 -- Yes --> O3[Shift array\nto fill gap]
+    O3 --> O4[Decrement student count]
+    O4 --> O5[Log: Deleted Student]
+    O2 & O5 --> H
+
+    I -- 7 --> P[Save all data\nto database.dat]
+    P --> Q[Log: Exited System]
+    Q --> R([✅ Exit Program])
+
+    I -- Other --> S[Print: Invalid choice]
+    S --> H
+```
