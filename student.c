@@ -65,8 +65,15 @@ void addStudentData(int *students, int subjects, int roll[], char studentName[MA
     printf("\nStudent added successfully!\n");
 
     // လုပ်ဆောင်ချက်ကို Log မှတ်တမ်းတင်ခြင်း
-    char logMsg[100];
-    sprintf(logMsg, "Added Student: %s (Roll: %d)", studentName[i], roll[i]);
+    char marksStr[256] = "";
+    char temp[64];
+    for (int j = 0; j < subjects; j++) {
+        sprintf(temp, "%s: %d ", subjectName[j], marks[i][j]);
+        strcat(marksStr, temp);
+    }
+    char logMsg[512];
+    sprintf(logMsg, "STUDENT ADDED | Roll: %d | Name: %s | Marks: [%s] | Total: %d | Percent: %.2f%% | Grade: %c | Status: %s",
+            roll[i], studentName[i], marksStr, total[i], percentage[i], grade[i], status[i]);
     writeLog(logMsg);
 }
 
@@ -153,3 +160,4 @@ void writeLog(const char *message) {
         fclose(fp);
     }
 }
+

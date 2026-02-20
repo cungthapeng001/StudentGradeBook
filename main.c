@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "auth.h"
-#include "auth.c"
 #include "student.h"
-#include "student.c"
 #include "delete.h"
-#include "delete.c"
 
 int main() {
     // စနစ်အတွင်းသို့ ဝင်ရောက်ခြင်း
@@ -24,14 +21,20 @@ int main() {
     loadData(&students, &subjects, roll, studentName, subjectName, marks, total, percentage, grade, status);
 
     printf("Welcome! Student Grade Calculation:\n");
-    printf("Enter number of subjects to handle: ");
-    scanf("%d", &subjects);
-    getchar();
 
-    for (int j = 0; j < subjects; j++) {
-        printf("Enter subject %d name: ", j + 1);
-        fgets(subjectName[j], 50, stdin);
-        subjectName[j][strcspn(subjectName[j], "\n")] = 0;
+    // အကယ်၍ subjects မရှိသေးမှသာ မေးမြန်းခြင်း
+    if (subjects <= 0 || subjects > MAX) {
+        printf("Enter number of subjects to handle: ");
+        scanf("%d", &subjects);
+        getchar();
+
+        for (int j = 0; j < subjects; j++) {
+            printf("Enter subject %d name: ", j + 1);
+            fgets(subjectName[j], 50, stdin);
+            subjectName[j][strcspn(subjectName[j], "\n")] = 0;
+        }
+    } else {
+        printf("Loaded %d subjects from previous session.\n", subjects);
     }
 
     do {
