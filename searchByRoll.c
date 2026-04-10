@@ -15,7 +15,6 @@ void searchByRoll(int students, Student studentList[]) {
     }
     if (!found) printf("Roll number not found!\n");
 
-    // ရှာဖွေမှုမှတ်တမ်းကို Log တွင် သိမ်းဆည်းခြင်း
     char logMsg[100];
     sprintf(logMsg, "Searched for Roll Number: %d", searchRoll);
     writeLog(logMsg);

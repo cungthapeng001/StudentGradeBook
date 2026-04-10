@@ -17,7 +17,6 @@ void searchByName(int students, Student studentList[]) {
     }
     if (!found) printf("Student not found!\n");
 
-    // ရှာဖွေမှုမှတ်တမ်းကို Log တွင် သိမ်းဆည်းခြင်း
     char logMsg[100];
     sprintf(logMsg, "Searched for Student Name: %s", searchName);
     writeLog(logMsg);

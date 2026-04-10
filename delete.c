@@ -2,7 +2,6 @@
 #include <string.h>
 #include "delete.h"
 
-// ကျောင်းသားဒေတာကို ပြန်လည်ဖျက်သိမ်းသည့် function
 void deleteStudentData(int *students, Student studentList[]) {
     if (*students == 0) {
         printf("\nNo student data available to delete!\n");
@@ -25,14 +24,12 @@ void deleteStudentData(int *students, Student studentList[]) {
         char deletedName[50];
         strcpy(deletedName, studentList[foundIndex].name);
 
-        // ဒေတာများကို တစ်ခုစီ ရှေ့သို့ တိုးရွှေ့ခြင်း (Shifting)
         for (int i = foundIndex; i < *students - 1; i++) {
             studentList[i] = studentList[i + 1];
         }
         (*students)--;
         printf("\nStudent %s (Roll: %d) has been deleted.\n", deletedName, searchRoll);
 
-        // လုပ်ဆောင်ချက်ကို Log မှတ်တမ်းတင်ခြင်း
         char logMsg[100];
         sprintf(logMsg, "Deleted Student: %s (Roll: %d)", deletedName, searchRoll);
         writeLog(logMsg);

@@ -4,7 +4,7 @@
 
 bool login() {
     char inputPass[20];
-    int attempts = 3; // အကြိမ်အရေအတွက် ၃ ကြိမ်ပဲ စမ်းခွင့်ပေးမယ်
+    int attempts = 3;
 
     while (attempts > 0) {
         printf("\n========= SYSTEM LOGIN =========");

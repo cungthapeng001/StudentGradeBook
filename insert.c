@@ -2,7 +2,6 @@
 #include <string.h>
 #include "insert.h"
 
-// Subject များကို ကနဦးသတ်မှတ်ပေးသည့် function
 void setupSubjects(int *subjects, char subjectName[MAX][50]) {
     if (*subjects <= 0 || *subjects > MAX) {
         printf("Enter number of subjects to handle: ");
@@ -31,11 +30,11 @@ void addStudentData(int *students, int subjects, Student studentList[], char sub
     printf("\n--- Adding New Student (Index: %d) ---\n", i + 1);
     printf("Enter roll number: ");
     scanf("%d", &studentList[i].roll);
-    getchar(); // buffer clear လုပ်ခြင်း
+    getchar();
 
     printf("Enter student name: ");
     fgets(studentList[i].name, 50, stdin);
-    studentList[i].name[strcspn(studentList[i].name, "\n")] = 0; // line အသစ်ကို ဖယ်ထုတ်ခြင်း
+    studentList[i].name[strcspn(studentList[i].name, "\n")] = 0;
 
     for (int j = 0; j < subjects; j++) {
         char tempSub[50];
@@ -52,10 +51,9 @@ void addStudentData(int *students, int subjects, Student studentList[], char sub
     studentList[i].grade = calculateGrade(studentList[i].percentage);
     strcpy(studentList[i].status, (studentList[i].percentage >= 40) ? "PASS" : "FAIL");
 
-    (*students)++; // ကျောင်းသားအရေအတွက်ကို တိုးမြှင့်ခြင်း
+    (*students)++;
     printf("\nStudent added successfully!\n");
 
-    // လုပ်ဆောင်ချက်ကို Log မှတ်တမ်းတင်ခြင်း
     char marksStr[256] = "";
     char temp[64];
     for (int j = 0; j < subjects; j++) {

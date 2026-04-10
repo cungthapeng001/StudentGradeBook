@@ -3,7 +3,6 @@
 #include <time.h>
 #include "showAllStudentResult.h"
 
-// ရရှိသည့် အမှတ်အပေါ်မူတည်ပြီး Grade ကို တွက်ချက်ပေးသည့် function
 char calculateGrade(float p) {
     if (p >= 80) return 'A';
     else if (p >= 65) return 'B';
@@ -15,7 +14,6 @@ char calculateGrade(float p) {
 
 
 
-// ရလဒ်ဇယားကို ပြသပေးသည့် function
 void printResultTable(int students, int subjects, Student studentList[], char subjectName[MAX][50]) {
     if (students == 0) {
         printf("\nNo data available to show!\n");
@@ -39,7 +37,6 @@ void printResultTable(int students, int subjects, Student studentList[], char su
         }
         printf("%d\t%.2f\t%c\t%s\n", studentList[i].total, studentList[i].percentage, studentList[i].grade, studentList[i].status);
     }
-    // လုပ်ဆောင်ချက်ကို Log မှတ်တမ်းတင်ခြင်း
     writeLog("Viewed Result Table");
 }
 

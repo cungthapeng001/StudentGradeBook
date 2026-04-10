@@ -11,6 +11,5 @@ void showClassTopper(int students, Student studentList[]) {
         }
         printf("\n--- CLASS TOPPER ---\nName: %s\nPercentage: %.2f\nGrade: %c\n", studentList[top].name, studentList[top].percentage, studentList[top].grade);
     }
-    // ကြည့်ရှုမှုမှတ်တမ်းကို Log တွင် သိမ်းဆည်းခြင်း
     writeLog("Viewed Class Topper");
 }
