@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include "showAllStudentResult.h"
+
+// ရရှိသည့် အမှတ်အပေါ်မူတည်ပြီး Grade ကို တွက်ချက်ပေးသည့် function
+char calculateGrade(float p) {
+    if (p >= 80) return 'A';
+    else if (p >= 65) return 'B';
+    else if (p >= 50) return 'C';
+    else if (p >= 40) return 'D';
+    else return 'F';
+}
+
+
+
+
+// ရလဒ်ဇယားကို ပြသပေးသည့် function
+void printResultTable(int students, int subjects, Student studentList[], char subjectName[MAX][50]) {
+    if (students == 0) {
+        printf("\nNo data available to show!\n");
+        return;
+    }
+
+    printf("\n--- FINAL RESULT TABLE ---\n");
+    printf("Roll\tName\t\t");
+    for (int j = 0; j < subjects; j++) {
+        char tempSub[50];
+        strcpy(tempSub, subjectName[j]);
+        tempSub[strcspn(tempSub, "\n")] = 0;
+        printf("%s\t", tempSub);
+    }
+    printf("Total\tPercent\tGrade\tStatus\n");
+
+    for (int i = 0; i < students; i++) {
+        printf("%d\t%s\t\t", studentList[i].roll, studentList[i].name);
+        for (int j = 0; j < subjects; j++) {
+            printf("%d\t", studentList[i].marks[j]);
+        }
+        printf("%d\t%.2f\t%c\t%s\n", studentList[i].total, studentList[i].percentage, studentList[i].grade, studentList[i].status);
+    }
+    // လုပ်ဆောင်ချက်ကို Log မှတ်တမ်းတင်ခြင်း
+    writeLog("Viewed Result Table");
+}
+

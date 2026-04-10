@@ -1,41 +1,48 @@
 #include <stdio.h>
 #include <string.h>
 #include "auth.h"
-#include "student.h"
+#include "showAllStudentResult.h"
 #include "delete.h"
+#include "insert.h"
+#include "searchByName.h"
+#include "searchByRoll.h"
+#include "classTopper.h"
+
+// အဓိက Menu ကို ပြသပေးသည့် function
+void showMenu() {
+    printf("\n====================================\n");
+    printf(" \t\t\tSTUDENT RESULT SYSTEM\n");
+    printf("====================================\n");
+    printf("1. Add New Student Data\n");
+    printf("2. Search Result by Name\n");
+    printf("3. Search Result by Roll Number\n");
+    printf("4. Show Class Topper\n");
+    printf("5. Show All Student Results\n");
+    printf("6. Delete Student Record\n");
+    printf("7. Exit\n");
+    printf("Enter your choice: ");
+}
 
 int main() {
+
+
+    int students = 0, subjects;
+    Student studentList[MAX];
+    char subjectName[MAX][50];
+    int choice;
+
     // စနစ်အတွင်းသို့ ဝင်ရောက်ခြင်း
     if (!login()){
         return 0;
     }
 
-    int students = 0, subjects;
-    int marks[MAX][MAX], total[MAX], roll[MAX];
-    float percentage[MAX];
-    char grade[MAX], status[MAX][5];
-    char studentName[MAX][50], subjectName[MAX][50];
-    int choice;
-
     // ယခင်သိမ်းဆည်းထားသော ဒေတာများကို ပြန်လည်ဖတ်ရှုခြင်း
-    loadData(&students, &subjects, roll, studentName, subjectName, marks, total, percentage, grade, status);
+    loadData(&students, &subjects, studentList, subjectName);
 
-    printf("Welcome! Student Grade Calculation:\n");
+    printf("            Welcome! Student Grade Calculation:\n");
 
     // အကယ်၍ subjects မရှိသေးမှသာ မေးမြန်းခြင်း
-    if (subjects <= 0 || subjects > MAX) {
-        printf("Enter number of subjects to handle: ");
-        scanf("%d", &subjects);
-        getchar();
-
-        for (int j = 0; j < subjects; j++) {
-            printf("Enter subject %d name: ", j + 1);
-            fgets(subjectName[j], 50, stdin);
-            subjectName[j][strcspn(subjectName[j], "\n")] = 0;
-        }
-    } else {
-        printf("Loaded %d subjects from previous session.\n", subjects);
-    }
+    setupSubjects(&subjects, subjectName);
 
     do {
         showMenu(); // ပင်မမီနူးကို ပြသခြင်း
@@ -45,85 +52,35 @@ int main() {
         switch(choice) {
             case 1:
                 // ကျောင်းသားသစ် အချက်အလက် ထည့်သွင်းခြင်း
-                addStudentData(&students, subjects, roll, studentName, subjectName, marks, total, percentage, grade, status);
+                addStudentData(&students, subjects, studentList, subjectName);
                 break;
-            case 2: {
+            case 2:
                 // ကျောင်းသားအမည်ဖြင့် ရှာဖွေခြင်း
-                char searchName[50];
-                int found = 0;
-                printf("Enter student name to search: ");
-                fgets(searchName, 50, stdin);
-                searchName[strcspn(searchName, "\n")] = 0;
-                for (int i = 0; i < students; i++) {
-                    if (strcmp(studentName[i], searchName) == 0) {
-                        found = 1;
-                        printf("\n[Found] Roll: %d | Total: %d | %.2f%% | Grade: %c | %s\n", roll[i], total[i], percentage[i], grade[i], status[i]);
-                    }
-                }
-                if (!found) printf("Student not found!\n");
-
-                // ရှာဖွေမှုမှတ်တမ်းကို Log တွင် သိမ်းဆည်းခြင်း
-                char logMsg[100];
-                sprintf(logMsg, "Searched for Student Name: %s", searchName);
-                writeLog(logMsg);
+                searchByName(students, studentList);
                 break;
-            }
-            case 3: {
+            case 3:
                 // ခုံနံပါတ်ဖြင့် ရှာဖွေခြင်း
-                int searchRoll, found = 0;
-                printf("Enter roll number to search: ");
-                scanf("%d", &searchRoll);
-                for (int i = 0; i < students; i++) {
-                    if (roll[i] == searchRoll) {
-                        found = 1;
-                        printf("\n[Found] Name: %s | Total: %d | Percentage: %.2f%% | Grade: %c | Status: %s\n", studentName[i], total[i], percentage[i], grade[i], status[i]);
-                    }
-                }
-                if (!found) printf("Roll number not found!\n");
-
-                // ရှာဖွေမှုမှတ်တမ်းကို Log တွင် သိမ်းဆည်းခြင်း
-                char logMsg[100];
-                sprintf(logMsg, "Searched for Roll Number: %d", searchRoll);
-                writeLog(logMsg);
+                searchByRoll(students, studentList);
                 break;
-            }
             case 4: 
-            {
                 // အမှတ်အများဆုံးရသူကို ပြသခြင်း
-                if (students == 0) {
-                    printf("No student data available!\n");
-                } else {
-                    int top = 0;
-                    for (int i = 1; i < students; i++) {
-                        if (percentage[i] > percentage[top]) top = i;
-                    }
-                    printf("\n--- CLASS TOPPER ---\nName: %s\nPercentage: %.2f\nGrade: %c\n", studentName[top], percentage[top], grade[top]);
-                }
-                // ကြည့်ရှုမှုမှတ်တမ်းကို Log တွင် သိမ်းဆည်းခြင်း
-                writeLog("Viewed Class Topper");
+                showClassTopper(students, studentList);
                 break;
-            }
             case 5:
-            {
                 // ရလဒ်ဇယားကို ပြသခြင်း
-                printResultTable(students, subjects, roll, studentName, subjectName, marks, total, percentage, grade, status);
+                printResultTable(students, subjects, studentList, subjectName);
                 break;
-            }
             case 6:
-            {
                 // ကျောင်းသားဒေတာကို ဖျက်သိမ်းခြင်း
-                deleteStudentData(&students, subjects, roll, studentName, marks, total, percentage, grade, status);
+                deleteStudentData(&students, studentList);
                 break;
-            }
             case 7:
-            {
                // စနစ်မှ မထွက်မီ ဒေတာများကို သိမ်းဆည်းခြင်း
-               saveData(students, subjects, roll, studentName, subjectName, marks, total, percentage, grade, status);
+               saveData(students, subjects, studentList, subjectName);
                printf("Exiting system...\n");
                // ထွက်ခွာမှုမှတ်တမ်းကို Log တွင် သိမ်းဆည်းခြင်း
                writeLog("Exited System");
                 break;
-            }
             default:
                 printf("Invalid choice! Try again.\n");
         }
