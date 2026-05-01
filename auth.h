@@ -3,8 +3,12 @@
 
 #include <stdbool.h>
 
-#define APP_PASSWORD "admin123"
+typedef struct {
+    char userId[50];
+    char password[50];
+} User;
 
+void registerUser();
 bool login();
 
-#endif
+#endif

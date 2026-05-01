@@ -41,3 +41,4 @@ void writeLog(const char *message) {
         fclose(fp);
     }
 }
+//The Syntax: fwrite(memory_pointer, size_of_one_element, number_of_elements, file_pointer);

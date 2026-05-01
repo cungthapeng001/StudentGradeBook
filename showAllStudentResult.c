@@ -11,9 +11,6 @@ char calculateGrade(float p) {
     else return 'F';
 }
 
-
-
-
 void printResultTable(int students, int subjects, Student studentList[], char subjectName[MAX][50]) {
     if (students == 0) {
         printf("\nNo data available to show!\n");
